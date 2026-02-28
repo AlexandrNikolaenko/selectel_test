@@ -1,0 +1,34 @@
+<div class="app">
+  <aside class="sidebar">
+    <nav>
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Главная</a>
+      <a routerLink="/menu" routerLinkActive="active">Меню</a>
+    </nav>
+  </aside>
+
+  <div class="main-content">
+    @if (isMenuPage()) {
+      <header class="header">
+        <div class="header__row">
+          <div class="header__title">
+            <div class="k">Выбранное меню</div>
+            <div class="v">{{ headerTitle() }}</div>
+          </div>
+
+          <div class="header__stats">
+            <div class="stat">
+              <div class="k">Выбрано</div>
+              <div class="v">{{ headerCount() }}</div>
+            </div>
+            <div class="stat">
+              <div class="k">Сумма</div>
+              <div class="v">{{ headerTotal() | currency: 'RUB' : 'symbol-narrow' : '1.0-0' }}</div>
+            </div>
+          </div>
+        </div>
+      </header>
+    }
+
+    <router-outlet />
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<section class="page">
+  <div class="layout">
+    <aside class="menus">
+      <h2>Меню</h2>
+
+      <div class="menu-buttons">
+        @for (menu of state.menus; track menu.id) {
+          <button
+            type="button"
+            class="menu-btn"
+            [class.active]="menu.id === state.activeMenuId()"
+            (click)="onMenuSelect(menu.id)"
+          >
+            {{ menu.title }}
+          </button>
+        }
+      </div>
+    </aside>
+
+    <main class="items">
+      <h2>Пункты</h2>
+
+      @if (state.activeMenu(); as menu) {
+        <div class="items-list">
+          @for (item of menu.items; track item.id) {
+            <label class="item">
+              <input
+                type="checkbox"
+                [checked]="state.isItemSelected(menu.id, item.id)"
+                (change)="onItemToggle(menu.id, item.id, $any($event.target).checked)"
+              />
+              <span class="label">{{ item.label }}</span>
+              <span class="value">{{ item.value | currency: 'RUB' : 'symbol-narrow' : '1.0-0' }}</span>
+            </label>
+          }
+        </div>
+      } @else {
+        <p>Меню не найдено.</p>
+      }
+    </main>
+  </div>
+</section>
+
